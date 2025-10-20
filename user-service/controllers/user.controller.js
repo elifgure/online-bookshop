@@ -66,3 +66,39 @@ exports.login = async (req, res)=>{
     });
     }
 }
+// protect middleware
+exports.protect = async (req, res, next)=>{
+    try {
+        let token
+        if(req.headers.authorization && req.headers.authorization.startsWith("Bearer")){
+            token = req.headers.authorization.split(" ")[1]
+        }
+        if(!token){
+            return res.status(401).json({message: "Yetkisiz erişim"})
+        }
+        // token doğrulama
+        const decoded = jwt.verify(token, process.env.JWT_SECRET)
+        const currentUser = await User.findById(decoded.id)
+        if(!currentUser){
+            return res.status(401).json({message: "Kullanıcı bulunamadı"})
+        }
+        req.user = currentUser
+        next()
+    } catch (error) {
+        res.status(500).json({
+            status: 'error',
+            message: error.message
+        })
+    }
+}
+// kullanıcı bilgisi
+exports.getUser = async (req, res)=>{
+    res.status(200).json({
+        status: "success",
+        user:{
+            id: req.user._id,
+            name: req.user.name,
+            email: req.user.email
+        }
+    })
+}
