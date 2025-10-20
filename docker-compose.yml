@@ -1,0 +1,10 @@
+
+services:
+  user-service:
+    build: ./user-service
+    container_name: user-service
+    env_file:
+      - ./user-service/.env
+    ports:
+      - "3000:3000"
+    command: npm start
