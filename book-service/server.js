@@ -1,10 +1,14 @@
 const express = require("express")
 const mongoose = require("mongoose")
+const bookRoutes = require("./routes/book.routes")
 
-const app = expresss()
+const app = express()
 
 // middleware
 app.use(express.json())
+
+// routes
+app.use("/api/books", bookRoutes)
 
 app.get("/", (req, res)=>{
     res.send("book service is ok")
