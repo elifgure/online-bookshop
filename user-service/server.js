@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 
 // Routes
-app.use("/api/user", userRoutes);
+app.use("/api/users", userRoutes);
 
 app.get("/", (req, res) => {
   res.send("user service ok");

@@ -1,6 +1,5 @@
-
 services:
-# user service
+  # user service
   user-service:
     build: ./user-service
     container_name: user-service
@@ -9,8 +8,9 @@ services:
     ports:
       - "3000:3000"
     command: npm start
-# book service
-book-service:
+
+  # book service
+  book-service:
     build: ./book-service
     container_name: book-service
     env_file:
@@ -18,8 +18,9 @@ book-service:
     ports:
       - "3001:3001"
     command: npm start
-# order service
-order-service:
+
+  # order service
+  order-service:
     build: ./order-service
     container_name: order-service
     env_file:
