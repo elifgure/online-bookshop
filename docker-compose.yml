@@ -1,5 +1,6 @@
+version: "3.9"
+
 services:
-  # user service
   user-service:
     build: ./user-service
     container_name: user-service
@@ -8,8 +9,9 @@ services:
     ports:
       - "3000:3000"
     command: npm start
+    networks:
+      - app-network
 
-  # book service
   book-service:
     build: ./book-service
     container_name: book-service
@@ -18,8 +20,9 @@ services:
     ports:
       - "3001:3001"
     command: npm start
+    networks:
+      - app-network
 
-  # order service
   order-service:
     build: ./order-service
     container_name: order-service
@@ -28,3 +31,12 @@ services:
     ports:
       - "3002:3002"
     command: npm start
+    depends_on:
+      - user-service
+      - book-service
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
