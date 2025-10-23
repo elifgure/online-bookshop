@@ -1,15 +1,7 @@
 const request = require("supertest");
 const app = require("../server"); // express app export yapılacak
-const mongoose = require("mongoose");
+require('./setup')
 
-beforeAll(async () => {
-  // Test DB
-  await mongoose.connect(process.env.MONGO_URI_TEST);
-});
-
-afterAll(async () => {
-  await mongoose.connection.close();
-});
 
 describe("User Service", () => {
   let testEmail = `test${Date.now()}@mail.com`;
