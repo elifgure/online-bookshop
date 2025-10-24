@@ -35,12 +35,11 @@ const dummyBook = { _id: new mongoose.Types.ObjectId(), title: "Test Book", pric
     bookId = dummyBook._id;
 
     const mockEmit = jest.fn();
-  app.set("io", { emit: mockEmit }); // req.app.get("io") bunu dönecek
-  app.mockEmit = mockEmit; // testte erişebilmek için saklıyoruz
+  app.set("io", { emit: mockEmit }); 
+  app.mockEmit = mockEmit; 
   });
 
   afterEach(async () => {
-    // orderları temizle
     await Order.deleteMany();
   });
 
