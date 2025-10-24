@@ -40,16 +40,16 @@ exports.createOrder = async (req, res) => {
     // socket io ile event
     const io = req.app.get("io");
     io.emit("orderCreated", {
-      orderId: order._id,
-      userId,
-      bookId,
+      orderId: order._id.toString(),
+      userId: userId.toString(),
+      bookId: bookId.toString(),
       quantity,
     });
     console.log("Sipariş oluşturuldu:", order._id);
     return res.status(201).json(order);
   } catch (error) {
     console.error("HATA:", error.message);
-    return res.status(500).json({
+    return res.status(400).json({
       message: "Sipariş oluşturulurken bir hata oluştu",
       error: error.message,
     });
@@ -98,7 +98,7 @@ exports.getOrderById = async (req, res) => {
     return res.status(200).json(orderDetails);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({
+    return res.status(400).json({
       message: "Sipariş detayı alınırken hata oluştu",
       error: error.message,
     });

@@ -23,16 +23,18 @@ app.use((err, req, res, next) => {
   });
 });
 
-// mongoose connect
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch((err) => console.error("mongoDB Connection Error", err));
 
+
+// Test ortamında mongoose.connect’i atla
+if (process.env.NODE_ENV !== "test") {
+  mongoose.connect(process.env.MONGO_URI)
+    .then(() => console.log("MongoDB connected"))
+    .catch(err => console.error("MongoDB connection error:", err));
+}
 const PORT = process.env.PORT || 3000;
 module.exports = app
 
-if (require.main === module) {
+if (require.main === module && process.env.NODE_ENV !== "test") {
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });

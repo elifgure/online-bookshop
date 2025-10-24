@@ -15,7 +15,7 @@ exports.addBook = async (req, res) => {
       author,
       price,
     });
-    res.status(200).json({
+    res.status(201).json({
       status: "success",
       book,
     });
@@ -51,7 +51,7 @@ exports.getBooksbyId = async (req, res)=>{
         message: 'Book not found'
       });
     }
-    res.status(200).json({
+    res.status(201).json({
         status:'success',
         data:book
     })

@@ -21,7 +21,7 @@ exports.register = async (req, res)=>{
             password
         })
         const token = createToken(user._id)
-        res.status(200).json({
+        res.status(201).json({
             status: "success",
             token,
             user:{
@@ -55,7 +55,7 @@ exports.login = async (req, res)=>{
       token,
       user: {
         id: user._id,
-        username: user.username,
+         name: user.name,
         email: user.email
       }
     })
