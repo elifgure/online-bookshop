@@ -36,6 +36,17 @@ services:
       - book-service
     networks:
       - app-network
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    env_file:
+      - ./api-gateway/.env
+    ports:
+      - "4000:4000"
+    depends_on:
+      - user-service
+      - book-service
+      - order-service
 
 networks:
   app-network:
